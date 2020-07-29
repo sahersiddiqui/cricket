@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Team;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TeamController extends Controller
 {
@@ -36,7 +37,19 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => "required",
+            "club_state" => "required",
+            "logo" => "required"
+        ]);
+
+        
+
+        Team::create([
+            "name" => $request->name,
+            "club_state" => $request->club_state,
+            "logo_uri" => $logo_uri
+        ]);
     }
 
     /**
