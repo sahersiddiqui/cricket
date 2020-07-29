@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class TeamController extends Controller
 {
@@ -13,8 +15,26 @@ class TeamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            DB::statement(DB::raw("set @rownum=$request->start"));
+            $team = Team::select([
+                "name",
+                "club_state",
+                "logo_uri",
+                "created_at",
+                DB::raw('@rownum  := @rownum  + 1 AS rownum')
+
+            ])
+            ->paginate($request->length);
+
+            $response = $team->toArray();
+
+            $response["recordsTotal"]    = $team->total();
+            $response["recordsFiltered"] = $team->total();
+            return $response;
+        }
         return view("admin.teams.list");
     }
 
@@ -26,7 +46,6 @@ class TeamController extends Controller
     public function create()
     {
         return view("admin.teams.add");
-        
     }
 
     /**
@@ -43,13 +62,15 @@ class TeamController extends Controller
             "logo" => "required"
         ]);
 
-        
+        $path = $request->file("logo")->store("teams");
 
         Team::create([
             "name" => $request->name,
             "club_state" => $request->club_state,
-            "logo_uri" => $logo_uri
+            "logo_uri" => $path
         ]);
+
+        return redirect()->route("team.index");
     }
 
     /**
