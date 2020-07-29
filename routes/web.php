@@ -13,14 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.auth.login');
-});
-
-Route::get('/home', function () {
-    return view('admin.teams.list');
-});
 
 Route::namespace("Admin")->group(function(){
-    Route::resource('team', 'TeamController');
+    /**
+     * Routes before authentication
+     */
+    Route::namespace("Auth")->group(function(){
+        Route::get('/',"LoginController@showLoginForm")->name("admin.login");
+        Route::post('login',"LoginController@login")->name("login");
+    });
+    
+    Route::middleware("auth")->group(function(){
+        
+        Route::post('logout',"Auth\LoginController@logout")->name("admin.logout");
+        Route::resource('team', 'TeamController');
+        Route::get('/home', 'HomeController@index')->name('admin.home');
+    });
+
 });
+// Auth::routes();
+
