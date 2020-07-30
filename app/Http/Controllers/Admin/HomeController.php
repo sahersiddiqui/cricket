@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Team;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home');
+        $data['teams'] = Team::count();
+        // $data['teams'] = Player::count();
+        // $data['teams'] = Matches::count();
+        return view('admin.home')->with($data);
     }
 }

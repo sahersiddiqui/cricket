@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     
     <title>Admin</title>
     
@@ -17,6 +18,7 @@
     
     <!-- Custom styles for this template-->
     <link href="{{asset('css/admin.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/swal.css')}}" rel="stylesheet">
     @stack('css')
 </head>
 
@@ -53,13 +55,13 @@
                 </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{route("player.index")}}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Players</span>
                 </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{route("match.index")}}">
                     <i class="fas fa-fw fa-trophy"></i>
                     <span>Matches</span>
                 </a>
@@ -117,7 +119,7 @@
                 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    
+                    @include('admin.layouts.alert')
                     @yield("content")
                 </div>
                 <!-- /.container-fluid -->
@@ -177,6 +179,8 @@
     <!-- Custom scripts for all pages-->
     <script src="{{asset('js/admin.min.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/additional-methods.min.js"></script>
 
     <script>
         const baseUrl = "{{url('/')}}/"
@@ -184,6 +188,8 @@
     </script>
     <!-- Page level custom scripts -->
     @stack('js')
+    <script src="{{asset('js/common.js')}}"></script>
+
 </body>
 
 </html>

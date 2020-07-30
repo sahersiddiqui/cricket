@@ -6,6 +6,8 @@ use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Cache\Store;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 
 class TeamController extends Controller
@@ -20,6 +22,7 @@ class TeamController extends Controller
         if ($request->ajax()) {
             DB::statement(DB::raw("set @rownum=$request->start"));
             $team = Team::select([
+                "id",
                 "name",
                 "club_state",
                 "logo_uri",
@@ -67,7 +70,7 @@ class TeamController extends Controller
             "logo" => "required"
         ]);
 
-        $path = $request->file("logo")->store(public_path("teams"));
+        $path = $request->file("logo")->store("teams");
 
         Team::create([
             "name" => $request->name,
@@ -75,18 +78,7 @@ class TeamController extends Controller
             "logo_uri" => $path
         ]);
 
-        return redirect()->route("team.index");
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect()->route('team.index')->withSuccess("Team added successfully");
     }
 
     /**
@@ -97,7 +89,9 @@ class TeamController extends Controller
      */
     public function edit($id)
     {
-        //
+        $id = base64_decode($id);
+        $data['team'] = Team::findOrFail($id);
+        return view("admin.teams.edit")->with($data);
     }
 
     /**
@@ -109,7 +103,28 @@ class TeamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => "required",
+            "club_state" => "required",
+        ]);
+
+        $id = base64_decode($id);
+        $team = Team::findOrFail($id);
+
+        DB::transaction(function () use($request,$team) {
+            if($request->file('logo')){
+                Storage::delete($team->logo_uri);
+                $path = $request->file("logo")->store("teams");
+                $team->logo_uri = $path;
+            }
+            $team->name = $request->name;
+            $team->club_state = $request->club_state;
+            $team->save();
+        });
+
+        return redirect()->route('team.index')->withSuccess("Team updated successfully");
+
+
     }
 
     /**
@@ -120,6 +135,17 @@ class TeamController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id = base64_decode($id);
+
+        $team = Team::findOrFail($id);
+
+        Storage::delete($team->logo_uri);
+
+        $team->delete();
+
+        return response()->json([
+            'status' => Response::HTTP_OK,
+            "message" => "Team deleted successfully"
+        ]);
     }
 }

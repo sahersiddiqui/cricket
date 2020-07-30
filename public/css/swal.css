@@ -1,0 +1,40 @@
+.swal-button--confirm {
+    background: transparent;
+    border: 1px solid #4e73df;
+    color: #4e73df;
+}
+
+.swal-button:not([disabled]):hover {
+    background: #4e73df;
+    color: #fff;
+}
+
+.swal-footer {
+    text-align: center
+}
+
+.swal-modal,
+.swal-footer,
+.swal-button {
+    border-radius: 0px;
+}
+
+.swal-button-container {
+    margin: 0;
+    margin-left: 15px;
+}
+
+.swal-button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.swal-button--cancel {
+    color: #4e73df;
+    background-color: transparent;
+    border: 1px solid #4e73df;
+}
+
+.swal-text {
+    text-align: center;
+}

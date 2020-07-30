@@ -26,7 +26,25 @@ Route::namespace("Admin")->group(function(){
     Route::middleware("auth")->group(function(){
         
         Route::post('logout',"Auth\LoginController@logout")->name("admin.logout");
+
+        /**
+         * Team routes
+         */
         Route::resource('team', 'TeamController');
+
+        /**
+         * Player routes
+         */
+        Route::resource('player', 'PlayerController');
+
+        /**
+         * Match routes
+         */
+        Route::resource('match', 'MatchController');
+
+        /**
+         * Dashboard routes
+         */
         Route::get('/home', 'HomeController@index')->name('admin.home');
     });
 
