@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     
     <!-- Custom styles for this template-->
-    <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/admin.min.css')}}" rel="stylesheet">
     @stack('css')
 </head>
 
@@ -175,7 +175,9 @@
     <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
     
     <!-- Custom scripts for all pages-->
-    <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+    <script src="{{asset('js/admin.min.js')}}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <script>
         const baseUrl = "{{url('/')}}/"
         const assetUrl = "{{asset('storage')}}/"

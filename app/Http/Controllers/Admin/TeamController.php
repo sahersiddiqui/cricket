@@ -27,6 +27,11 @@ class TeamController extends Controller
                 DB::raw('@rownum  := @rownum  + 1 AS rownum')
 
             ])
+            ->when($request->search['value'],function($q) use($request){
+                $q->where("name","LIKE","%{$request->search['value']}%")
+                ->orWhere("club_state","LIKE","%{$request->search['value']}%");
+            })
+            ->orderBy($request->columns[$request->order[0]['column']]['name'],$request->order[0]['dir'])
             ->paginate($request->length);
 
             $response = $team->toArray();
@@ -62,7 +67,7 @@ class TeamController extends Controller
             "logo" => "required"
         ]);
 
-        $path = $request->file("logo")->store("teams");
+        $path = $request->file("logo")->store(public_path("teams"));
 
         Team::create([
             "name" => $request->name,
