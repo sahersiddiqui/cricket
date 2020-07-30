@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Team;
 use App\Models\Player;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -22,19 +23,19 @@ class PlayerController extends Controller
             DB::statement(DB::raw("set @rownum=$request->start"));
             $player = Player::select([
                 "id",
-                "name",
-                "club_state",
-                "logo_uri",
-                "created_at",
+                "firstname",
+                "lastname",
+                "image_uri",
+                "country",
                 DB::raw('@rownum  := @rownum  + 1 AS rownum')
 
             ])
-            ->when($request->search['value'],function($q) use($request){
-                $q->where("name","LIKE","%{$request->search['value']}%")
-                ->orWhere("club_state","LIKE","%{$request->search['value']}%");
-            })
-            ->orderBy($request->columns[$request->order[0]['column']]['name'],$request->order[0]['dir'])
-            ->paginate($request->length);
+                ->when($request->search['value'], function ($q) use ($request) {
+                    $q->where("name", "LIKE", "%{$request->search['value']}%")
+                        ->orWhere("club_state", "LIKE", "%{$request->search['value']}%");
+                })
+                ->orderBy($request->columns[$request->order[0]['column']]['name'], $request->order[0]['dir'])
+                ->paginate($request->length);
 
             $response = $player->toArray();
 
@@ -65,20 +66,28 @@ class PlayerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => "required",
-            "club_state" => "required",
-            "logo" => "required"
+            'first_name' => "required",
+            'last_name' => "required",
+            'country' => "required",
+            'jersey_number' => "required|integer",
+            'matches' => "required|integer",
+            'image' => "required",
+            'team_id' => "required",
         ]);
 
-        $path = $request->file("logo")->store("Players");
+        $path = $request->file("image")->store("player");
 
         Player::create([
-            "name" => $request->name,
-            "club_state" => $request->club_state,
-            "logo_uri" => $path
+            'firstname' => $request->first_name,
+            'lastname' => $request->last_name,
+            'country' => $request->country,
+            'jersey_number' => $request->jersey_number,
+            'matches' => $request->matches,
+            'image_uri' => $path,
+            'team_id' => $request->team_id,
         ]);
 
-        return redirect()->route('Player.index')->withSuccess("Player added successfully");
+        return redirect()->route('player.index')->withSuccess("Player added successfully");
     }
 
     /**
@@ -90,7 +99,7 @@ class PlayerController extends Controller
     public function edit($id)
     {
         $id = base64_decode($id);
-        $data['Player'] = Player::findOrFail($id);
+        $data['player'] = Player::findOrFail($id);
         return view("admin.players.edit")->with($data);
     }
 
@@ -111,8 +120,8 @@ class PlayerController extends Controller
         $id = base64_decode($id);
         $player = Player::findOrFail($id);
 
-        DB::transaction(function () use($request,$player) {
-            if($request->file('logo')){
+        DB::transaction(function () use ($request, $player) {
+            if ($request->file('logo')) {
                 Storage::delete($player->logo_uri);
                 $path = $request->file("logo")->store("Players");
                 $player->logo_uri = $path;
@@ -123,8 +132,6 @@ class PlayerController extends Controller
         });
 
         return redirect()->route('Player.index')->withSuccess("Player updated successfully");
-
-
     }
 
     /**
@@ -139,7 +146,7 @@ class PlayerController extends Controller
 
         $player = Player::findOrFail($id);
 
-        Storage::delete($player->logo_uri);
+        Storage::delete($player->image_uri);
 
         $player->delete();
 

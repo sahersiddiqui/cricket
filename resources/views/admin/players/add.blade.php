@@ -13,10 +13,10 @@
         <!-- Basic Card Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Add Team</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Add Player</h6>
             </div>
             <div class="card-body">
-                <form class="user" autocomplete="off" action="{{route("team.store")}}" method="POST" enctype="multipart/form-data" id="add_team">
+                <form class="user" autocomplete="off" action="{{route("player.store")}}" method="POST" enctype="multipart/form-data" id="add_player">
                     @csrf
                     <div class="row">
                         <div class="col-lg-6">
@@ -24,12 +24,12 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
                                         <select class=" form-control " name="team_id">
-                                            <option>Select</option>
+                                            <option value="">Select</option>
                                             @foreach ($teams as $item)
-                                                <option>{{$item->name}}</option>
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
                                         </select>
-                                        @error('name')
+                                        @error('team_id')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -38,8 +38,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" autocomplete="off"  placeholder="First Name" name="first_name">
-                                        @error('name')
+                                        <input type="text" class="form-control form-control-user" autocomplete="off"  placeholder="First Name" name="first_name" value="{{old("first_name")}}">
+                                        @error('first_name')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -49,7 +49,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user"  placeholder="Last Name" name="last_name">
-                                        @error('club_state')
+                                        @error('last_name')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -59,7 +59,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
                                         <input type="file" class="form-control form-control-user"  name="image">
-                                        @error('logo')
+                                        @error('image')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -68,8 +68,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user"  placeholder="Total 50's" name="last_name">
-                                        @error('club_state')
+                                        <input type="text" class="form-control form-control-user"  placeholder="Total 50's" name="total_fifties">
+                                        @error('total_fifties')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -78,8 +78,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user"  placeholder="Total 100's" name="last_name">
-                                        @error('club_state')
+                                        <input type="text" class="form-control form-control-user"  placeholder="Total 100's" name="total_hundreds">
+                                        @error('total_hundreds')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -93,7 +93,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" autocomplete="off"  placeholder="Jersey Number" name="jersey_number">
-                                        @error('name')
+                                        @error('jersey_number')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -103,7 +103,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user"  placeholder="Country" name="country">
-                                        @error('club_state')
+                                        @error('country')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -113,7 +113,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" placeholder="Matches"  name="matches">
-                                        @error('logo')
+                                        @error('matches')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -122,8 +122,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" placeholder="Runs"  name="matches">
-                                        @error('logo')
+                                        <input type="text" class="form-control form-control-user" placeholder="Runs"  name="runs">
+                                        @error('runs')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -132,8 +132,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" placeholder="Highest Score"  name="matches">
-                                        @error('logo')
+                                        <input type="text" class="form-control form-control-user" placeholder="Highest Score"  name="highest_score">
+                                        @error('highest_score')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -174,21 +174,36 @@
 
 <script>
     
-    $("#add_team").validate({
+    $("#add_player").validate({
         rules :{
-            name : {
+            team_id : {
                 required:true
             },
-            club_state : {
+            first_name : {
+                required:true
+            },
+            last_name : {
+                required:true
+            },
+            country : {
                 required : true
             },
-            logo : {
+            jersey_number : {
+                required : true,
+                number:true
+            },
+            image : {
                 required : true
+            },
+            matches : {
+                required : true,
+                number:true
+
             },
         },
         messages:{
-            name : {
-                required : "Name is required",
+            team_id : {
+                required : "Please select team",
             },
             club_state :{
                 required : "Club state is required"

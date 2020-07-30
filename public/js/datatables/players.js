@@ -23,8 +23,8 @@ datatable = $('#dataTable').DataTable({
 			name: 'name',
 		},
 		{
-			data: 'logo_uri',
-			name: 'logo_uri',
+			data: 'image_uri',
+			name: 'image_uri',
 			"orderable": false,
 			render: function (data, type, row) {
 				return '<img height="100px" width="100px" src="' + assetUrl + data + '"/>';
@@ -49,8 +49,8 @@ datatable = $('#dataTable').DataTable({
 			"orderable": false,
 			"render": function (data, type, row) {
 				var buttons = "";
-				buttons += '<a href="'+baseUrl+'team/'+ btoa(row.id)+'/edit" title="Add Team"><i class="fas fa-edit text-primary"></i></a>';
-				buttons += '<span class="delete_item"  data-url="' + baseUrl + 'team/' + btoa(row.id) + '" title="Delete Team"><i class="fas fa-trash text-danger"></i></span>';
+				buttons += '<a href="'+baseUrl+'player/'+ btoa(row.id)+'/edit" title="Edit player"><i class="fas fa-edit text-primary"></i></a>';
+				buttons += '<span class="delete_item"  data-url="' + baseUrl + 'player/' + btoa(row.id) + '" title="Delete player"><i class="fas fa-trash text-danger"></i></span>';
 
 				return buttons;
 			}
