@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Team;
 use App\Models\Player;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class PlayerController extends Controller
 {
@@ -50,7 +52,8 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        return view("admin.players.add");
+        $data['teams'] = Team::get();
+        return view("admin.players.add")->with($data);
     }
 
     /**

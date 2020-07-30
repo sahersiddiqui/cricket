@@ -7,7 +7,7 @@
 @endpush
 @section("content")
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Teams</h1>
+<h1 class="h3 mb-2 text-gray-800">Player</h1>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -17,7 +17,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Listing</h6>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="{{route("team.create")}}" class="btn btn-primary btn-circle btn-sm" title="Add Team">
+                <a href="{{route("player.create")}}" class="btn btn-primary btn-circle btn-sm" title="Add player">
                     <i class="fas fa-plus"></i>
                 </a>
             </div>
@@ -30,8 +30,8 @@
                     <tr>
                         <th>S.No.</th>
                         <th>Name</th>
-                        <th>Club State</th>
-                        <th>Logo</th>
+                        <th>Image</th>
+                        <th>Country</th>
                         <th>Created On</th>
                         <th>Action</th>
                     </tr>
@@ -48,5 +48,5 @@
 <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
 <!-- Page level custom scripts -->
-<script src="{{asset('js/datatables/teams.js')}}"></script>
+<script src="{{asset('js/datatables/players.js')}}"></script>
 @endpush

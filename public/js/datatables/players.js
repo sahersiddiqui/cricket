@@ -23,18 +23,18 @@ datatable = $('#dataTable').DataTable({
 			name: 'name',
 		},
 		{
-			data: 'club_state',
-			name: 'club_state',
-			render: function (data, type, row) {
-				return data ? data : '-';
-			}
-		},
-		{
 			data: 'logo_uri',
 			name: 'logo_uri',
 			"orderable": false,
 			render: function (data, type, row) {
 				return '<img height="100px" width="100px" src="' + assetUrl + data + '"/>';
+			}
+        },
+        {
+			data: 'country',
+			name: 'country',
+			render: function (data, type, row) {
+				return data ? data : '-';
 			}
 		},
 		{
