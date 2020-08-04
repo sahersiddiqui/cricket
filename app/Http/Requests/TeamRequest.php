@@ -17,7 +17,7 @@ class TeamRequest extends FormRequest
         $image_required = $this->route('team') ? "nullable" : "required";
 
         return [
-            'name' => 'required|max:191|unique:teams',
+            'name' => 'required|max:191|unique:teams,name,'.base64_decode($this->route('team')),
             'club_state' => 'required|max:191',
             'logo' => $image_required.'|image|max:2999|mimes:jpeg,jpg,png,gif',
         ];

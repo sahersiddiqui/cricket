@@ -23,7 +23,7 @@
                                 @csrf
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" autocomplete="off"  placeholder="Name" name="name">
+                                    <input type="text" class="form-control form-control-user" autocomplete="off"  placeholder="Name" name="name" value="{{old("name")}}">
                                         @error('name')
                                             <span class="text-danger" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user"  placeholder="Club State" name="club_state">
+                                        <input type="text" class="form-control form-control-user"  placeholder="Club State" name="club_state" value="{{old("club_state")}}">
                                         @error('club_state')
                                             <span class="text-danger" role="alert">
                                                 <strong>{{ $message }}</strong>
