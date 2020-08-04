@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user"  placeholder="Last Name" name="last_name">
+                                        <input type="text" class="form-control form-control-user"  placeholder="Last Name" name="last_name"  value="{{old("last_name")}}">
                                         @error('last_name')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user"  placeholder="Total 50's" name="total_fifties">
+                                        <input type="text" class="form-control form-control-user"  placeholder="Total 50's" name="total_fifties"  value="{{old("total_fifties")}}">
                                         @error('total_fifties')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user"  placeholder="Total 100's" name="total_hundreds">
+                                        <input type="text" class="form-control form-control-user"  placeholder="Total 100's" name="total_hundreds" value="{{old("total_hundreds")}}">
                                         @error('total_hundreds')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -92,7 +92,7 @@
                             <div class="p-5">
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" autocomplete="off"  placeholder="Jersey Number" name="jersey_number">
+                                        <input type="text" class="form-control form-control-user" autocomplete="off"  placeholder="Jersey Number" name="jersey_number" value="{{old("jersey_number")}}">
                                         @error('jersey_number')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user"  placeholder="Country" name="country">
+                                        <input type="text" class="form-control form-control-user"  placeholder="Country" name="country"  value="{{old("country")}}">
                                         @error('country')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" placeholder="Matches"  name="matches">
+                                        <input type="text" class="form-control form-control-user" placeholder="Matches"  name="matches" value="{{old("matches")}}">
                                         @error('matches')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -122,7 +122,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" placeholder="Runs"  name="runs">
+                                        <input type="text" class="form-control form-control-user" placeholder="Runs"  name="runs" value="{{old("runs")}}">
                                         @error('runs')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -132,7 +132,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" placeholder="Highest Score"  name="highest_score">
+                                        <input type="text" class="form-control form-control-user" placeholder="Highest Score"  name="highest_score"  value="{{old("highest_score")}}">
                                         @error('highest_score')
                                         <span class="text-danger" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -140,15 +140,13 @@
                                         @enderror
                                     </div>
                                 </div>
-                                
-                                
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-4 mb-3 mb-sm-0"></div>
                         <div class="col-sm-2 mb-3 mb-sm-0">
-                            <a  href="{{route("team.index")}}" class="btn btn-danger btn-user btn-block text-white">
+                            <a  href="{{route("player.index")}}" class="btn btn-danger btn-user btn-block text-white">
                                 Back
                             </a>
                         </div>
@@ -205,14 +203,27 @@
             team_id : {
                 required : "Please select team",
             },
-            club_state :{
-                required : "Club state is required"
+            first_name :{
+                required : "First name is required"
             },
-            logo :{
-                required : "Logo  is required"
+            last_name :{
+                required : "Last name is required"
+            },
+            country :{
+                required : "Country is required"
+            },
+            jersey_number :{
+                required : "Jersey number is required"
+            },
+            matches :{
+                required : "Matches is required"
+            },
+            image :{
+                required : "Image  is required"
             },
         },
         errorPlacement: function (error, element) {
+            debugger
             element.siblings('span , .text-danger').remove()
             element.parent("div").append("<span class='text-danger'>"+error.text()+"</span>")
         },

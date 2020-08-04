@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PlayerRequest;
 use Illuminate\Support\Facades\Storage;
 
 class PlayerController extends Controller
@@ -31,8 +32,9 @@ class PlayerController extends Controller
 
             ])
                 ->when($request->search['value'], function ($q) use ($request) {
-                    $q->where("name", "LIKE", "%{$request->search['value']}%")
-                        ->orWhere("club_state", "LIKE", "%{$request->search['value']}%");
+                    $q->where("firstname", "LIKE", "%{$request->search['value']}%")
+                    ->orWhere("lastname", "LIKE", "%{$request->search['value']}%")
+                    ->orWhere("country", "LIKE", "%{$request->search['value']}%");
                 })
                 ->orderBy($request->columns[$request->order[0]['column']]['name'], $request->order[0]['dir'])
                 ->paginate($request->length);
@@ -63,17 +65,8 @@ class PlayerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PlayerRequest $request)
     {
-        $request->validate([
-            'first_name' => "required",
-            'last_name' => "required",
-            'country' => "required",
-            'jersey_number' => "required|integer",
-            'matches' => "required|integer",
-            'image' => "required",
-            'team_id' => "required",
-        ]);
 
         $path = $request->file("image")->store("player");
 
@@ -100,6 +93,7 @@ class PlayerController extends Controller
     {
         $id = base64_decode($id);
         $data['player'] = Player::findOrFail($id);
+        $data['teams'] = Team::get();
         return view("admin.players.edit")->with($data);
     }
 
@@ -110,28 +104,27 @@ class PlayerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PlayerRequest $request, $id)
     {
-        $request->validate([
-            'name' => "required",
-            "club_state" => "required",
-        ]);
-
         $id = base64_decode($id);
         $player = Player::findOrFail($id);
 
         DB::transaction(function () use ($request, $player) {
             if ($request->file('logo')) {
                 Storage::delete($player->logo_uri);
-                $path = $request->file("logo")->store("Players");
-                $player->logo_uri = $path;
+                $path = $request->file("image")->store("player");
+                $player->image_uri = $path;
             }
-            $player->name = $request->name;
-            $player->club_state = $request->club_state;
+            $player->firstname = $request->first_name;
+            $player->lastname = $request->last_name;
+            $player->country = $request->country;
+            $player->jersey_number = $request->jersey_number;
+            $player->matches = $request->matches;
+            $player->team_id = $request->team_id;
             $player->save();
         });
 
-        return redirect()->route('Player.index')->withSuccess("Player updated successfully");
+        return redirect()->route('player.index')->withSuccess("Player updated successfully");
     }
 
     /**

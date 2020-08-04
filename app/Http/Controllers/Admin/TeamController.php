@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Requests\TeamRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Cache\Store;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 
 class TeamController extends Controller
@@ -62,13 +63,8 @@ class TeamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TeamRequest $request)
     {
-        $request->validate([
-            'name' => "required",
-            "club_state" => "required",
-            "logo" => "required"
-        ]);
 
         $path = $request->file("logo")->store("teams");
 
@@ -101,12 +97,8 @@ class TeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TeamRequest $request, $id)
     {
-        $request->validate([
-            'name' => "required",
-            "club_state" => "required",
-        ]);
 
         $id = base64_decode($id);
         $team = Team::findOrFail($id);
