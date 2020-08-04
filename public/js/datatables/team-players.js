@@ -4,7 +4,11 @@ datatable = $('#dataTable').DataTable({
 	serverSide: true,
 	ordering: true,
 	ajax: {
-		url: window.location.href,
+        url: baseUrl + "player",
+        data : function(d){
+			
+        d.team_id = $("#team_id").val()
+        },
 		error: function (error) {
 			swal(error.responseJSON.message)
 		},
@@ -23,18 +27,18 @@ datatable = $('#dataTable').DataTable({
 			name: 'name',
 		},
 		{
-			data: 'club_state',
-			name: 'club_state',
-			render: function (data, type, row) {
-				return data ? data : '-';
-			}
-		},
-		{
-			data: 'logo_uri',
-			name: 'logo_uri',
+			data: 'image_uri',
+			name: 'image_uri',
 			"orderable": false,
 			render: function (data, type, row) {
 				return '<img height="100px" width="100px" src="' + assetUrl + data + '"/>';
+			}
+        },
+        {
+			data: 'country',
+			name: 'country',
+			render: function (data, type, row) {
+				return data ? data : '-';
 			}
 		},
 		{
@@ -49,9 +53,8 @@ datatable = $('#dataTable').DataTable({
 			"orderable": false,
 			"render": function (data, type, row) {
 				var buttons = "";
-				buttons += '<a href="'+baseUrl+'team/'+ btoa(row.id)+'/edit" title="Edit Team"><i class="fas fa-edit text-primary"></i></a>';
-				buttons += '<span class="delete_item"  data-url="' + baseUrl + 'team/' + btoa(row.id) + '" title="Delete Team"><i class="fas fa-trash text-danger"></i></span>';
-				buttons += '<a href="'+baseUrl+'team/'+ btoa(row.id)+'" title="View Team"><i class="fas fa-eye text-primary"></i></a>';
+				buttons += '<a href="'+baseUrl+'player/'+ btoa(row.id)+'/edit" title="Edit player"><i class="fas fa-edit text-primary"></i></a>';
+				buttons += '<span class="delete_item"  data-url="' + baseUrl + 'player/' + btoa(row.id) + '" title="Delete player"><i class="fas fa-trash text-danger"></i></span>';
 
 				return buttons;
 			}

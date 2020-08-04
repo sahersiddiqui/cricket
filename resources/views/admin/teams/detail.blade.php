@@ -1,23 +1,21 @@
 @extends('admin.layouts.master')
 @push('css')
 
-<link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
-
 
 @endpush
 @section("content")
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Player</h1>
+<h1 class="h3 mb-2 text-gray-800">Teams</h1>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3 ">
         <div class="row">
             <div class="col-sm-6">
-                <h6 class="m-0 font-weight-bold text-primary">Listing</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{$team->name}}</h6>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="{{route("player.create")}}" class="btn btn-primary btn-circle btn-sm" title="Add player">
+                <a href="{{route("player.create",["team_id" => base64_encode($team->id)])}}" class="btn btn-primary btn-circle btn-sm" title="Add Player">
                     <i class="fas fa-plus"></i>
                 </a>
             </div>
@@ -30,9 +28,8 @@
                     <tr>
                         <th>S.No.</th>
                         <th>Name</th>
-                        <th>Image</th>
-                        <th>Country</th>
-                        <th>Team</th>
+                        <th>Club State</th>
+                        <th>Logo</th>
                         <th>Created On</th>
                         <th>Action</th>
                     </tr>
@@ -41,6 +38,7 @@
         </div>
     </div>
 </div>
+<input type="hidden" id="team_id" value="{{$team->id}}"/>
 @endsection
 
 @push('js')
@@ -48,6 +46,6 @@
 <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
-<!-- Page level custom scripts -->
-<script src="{{asset('js/datatables/players.js')}}"></script>
+<script src="{{asset('js/datatables/team-players.js')}}"></script>
+
 @endpush

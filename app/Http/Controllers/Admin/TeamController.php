@@ -83,6 +83,19 @@ class TeamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function show($id)
+    {
+        $id = base64_decode($id);
+        $data['team'] = Team::findOrFail($id);
+        return view("admin.teams.detail")->with($data);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
         $id = base64_decode($id);

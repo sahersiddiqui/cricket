@@ -26,7 +26,7 @@
                                         <select class=" form-control " name="team_id">
                                             <option value="">Select</option>
                                             @foreach ($teams as $item)
-                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                            <option value="{{$item->id}}" {{base64_decode(request('team_id')) == $item->id ? "selected" : ""}}>{{$item->name}}</option>
                                             @endforeach
                                         </select>
                                         @error('team_id')

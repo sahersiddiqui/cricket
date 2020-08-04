@@ -10,7 +10,7 @@ datatable = $('#dataTable').DataTable({
 		},
 	},
 	order: [
-		[4, 'desc']
+		[5, 'desc']
 	],
 	columns: [
 		{
@@ -35,6 +35,14 @@ datatable = $('#dataTable').DataTable({
 			name: 'country',
 			render: function (data, type, row) {
 				return data ? data : '-';
+			}
+		},
+        {
+			data: 'team',
+			name: 'team',
+			orderable: false,
+			render: function (data, type, row) {
+				return data ? data.name : '-';
 			}
 		},
 		{

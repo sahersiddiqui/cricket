@@ -34,4 +34,10 @@ class Player extends Model
     {
         return date("d-m-Y h:i A",strtotime($this->created_at));
     }
+
+    public function team()
+    {
+        # code...
+        return $this->belongsTo(Team::class,'team_id','id');
+    }
 }
