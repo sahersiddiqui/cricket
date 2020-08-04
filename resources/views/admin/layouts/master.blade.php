@@ -42,25 +42,25 @@
             <hr class="sidebar-divider my-0">
             
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item {{strpos(Route::currentRouteName(), "admin") === 0 ? "active" : ""}}">
                 <a class="nav-link" href="{{route("admin.home")}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item {{strpos(Route::currentRouteName(), "team") === 0 ? "active" : ""}}">
                 <a class="nav-link" href="{{route("team.index")}}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Teams</span>
                 </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item {{strpos(Route::currentRouteName(), "player") === 0 ? "active" : ""}}">
                 <a class="nav-link" href="{{route("player.index")}}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Players</span>
                 </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item {{strpos(Route::currentRouteName(), "match") === 0 ? "active" : ""}}">
                 <a class="nav-link" href="{{route("match.index")}}">
                     <i class="fas fa-fw fa-trophy"></i>
                     <span>Matches</span>
