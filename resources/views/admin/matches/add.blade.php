@@ -5,46 +5,46 @@
 @endpush
 @section("content")
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Team</h1>
+<h1 class="h3 mb-2 text-gray-800">Match</h1>
 <div class="row">
     
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         
         <!-- Basic Card Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Add Team</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Add Match</h6>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="p-5">
-                            <form class="user" autocomplete="off" action="{{route("team.store")}}" method="POST" enctype="multipart/form-data" id="add_team">
+                            <form class="user" autocomplete="off" action="{{route("match.store")}}" method="POST" enctype="multipart/form-data" id="add_match">
                                 @csrf
                                 <div class="form-group row">
-                                    <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" autocomplete="off"  placeholder="Name" name="name">
-                                        @error('name')
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label>First Team</label>
+                                        <select class="form-control" name="first_team">
+                                            <option value="">Select Team</option>
+                                            @foreach ($teams as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('first_team')
                                             <span class="text-danger" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user"  placeholder="Club State" name="club_state">
-                                        @error('club_state')
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="file" class="form-control form-control-user"  name="logo">
-                                        @error('logo')
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label>Second Team</label>
+                                        <select class="form-control" name="second_team">
+                                            <option value="">Select Team</option>
+                                            @foreach ($teams as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                        </select>
+                                        @error('second_team')
                                             <span class="text-danger" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -53,7 +53,31 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <a  href="{{route("team.index")}}" class="btn btn-danger btn-user btn-block text-white">
+                                        <label>Match Date</label>
+                                        <input type="date" name="match_date" class="form-control" value="{{old("match_date")}}" />
+                                        @error('match_date')
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label>Match Result</label>
+                                        <select class="form-control" name="result">
+                                            <option value="">Select</option>
+                                            <option value="0">Draw</option>
+                                            <option value="1">Winning</option>
+                                        </select>
+                                        @error('result')
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <a  href="{{route("match.index")}}" class="btn btn-danger btn-user btn-block text-white">
                                             Back
                                         </a>
                                     </div>
@@ -83,7 +107,7 @@
 
 <script>
 
-    $("#add_team").validate({
+    $("#add_match").validate({
         rules :{
             name : {
                 required:true

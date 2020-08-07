@@ -30,6 +30,8 @@ class CreateTablePlayer extends Migration
             $table->unsignedInteger('total_hundreds')->default('0')->nullable();
             
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

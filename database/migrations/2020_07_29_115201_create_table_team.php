@@ -19,6 +19,8 @@ class CreateTableTeam extends Migration
             $table->string("club_state");
             $table->string("logo_uri");
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

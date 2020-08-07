@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Team;
 use App\Models\Match;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MatchRequest;
 
 class MatchController extends Controller
 {
@@ -51,7 +53,8 @@ class MatchController extends Controller
      */
     public function create()
     {
-        //
+        $data['teams'] = Team::get();
+        return view("admin.matches.add")->with($data);
     }
 
     /**
@@ -60,9 +63,21 @@ class MatchController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MatchRequest $request)
     {
-        //
+        DB::transaction(function () use($request) {
+            $match = Match::create([
+                "first_team_id" => $request->first_team,
+                "second_team_id" => $request->second_team,
+                "match_date" => $request->match_date,
+                "result" => $request->result,
+            ]);
+
+            $match->point()->create([
+                'team_id' => $request->winner,
+                "points" => 10
+            ]);
+        });
     }
 
     /**
