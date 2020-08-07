@@ -76,7 +76,7 @@
                                         @enderror
                                     </div>
                                     @php
-                                        $winner = $match->point ?($match->point->team_id == $match->first_team_id ? "first_team" : "second_team") : "";
+                                        $winner = in_array( $match->first_team_id,$match->point->toArray()) ? "first_team" : "second_team" ;
                                     @endphp
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <label>Winning Team</label>

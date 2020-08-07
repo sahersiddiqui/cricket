@@ -15,10 +15,10 @@ class CreateTablePoints extends Migration
     {
         Schema::create('points', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('match_id')->nullable();
+            $table->unsignedBigInteger('match_id');
             $table->foreign('match_id')->references('id')->on('matches')->onDelete('cascade')->onUpdate('NO ACTION');
 
-            $table->unsignedBigInteger('team_id')->nullable();
+            $table->unsignedBigInteger('team_id');
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade')->onUpdate('NO ACTION');
 
             $table->unsignedInteger('points')->nullable();

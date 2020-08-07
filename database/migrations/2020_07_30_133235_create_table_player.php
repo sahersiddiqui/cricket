@@ -15,12 +15,12 @@ class CreateTablePlayer extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('team_id')->nullable();
+            $table->unsignedBigInteger('team_id');
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('set null')->onUpdate('NO ACTION');
 
-            $table->string('firstname')->nullable();
-            $table->string('lastname')->nullable();
-            $table->string('image_uri')->nullable();
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->string('image_uri');
             $table->unsignedInteger('jersey_number')->nullable();
             $table->string('country')->nullable();
             $table->unsignedInteger('matches')->default('0')->nullable();

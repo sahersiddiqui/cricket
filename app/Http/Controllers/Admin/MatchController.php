@@ -84,8 +84,23 @@ class MatchController extends Controller
 
             if ($request->result == WINNER) {
                 $match->point()->create([
+                    'team_id' => $request->winner == "first_team" ? $request->second_team : $request->first_team,
+                    "points" => POINTS['lose']
+                ]);
+
+                $match->point()->create([
                     'team_id' => $request->{$request->winner},
-                    "points" => POINTS
+                    "points" => POINTS['win']
+                ]);
+                
+            }else{
+                $match->point()->create([
+                    'team_id' => $request->first_team,
+                    "points" => POINTS['draw']
+                ]);
+                $match->point()->create([
+                    'team_id' => $request->second_team,
+                    "points" => POINTS['draw']
                 ]);
             }
         });
@@ -113,7 +128,9 @@ class MatchController extends Controller
     public function edit($id)
     {
         $id = base64_decode($id);
-        $data['match'] = Match::with(['point'])->findOrFail($id);
+        $data['match'] = Match::with(['point' => function($q){
+            $q->where("points", POINTS['win']);
+        }])->findOrFail($id);
         $data['teams'] = Team::get();
 
         return view("admin.matches.edit")->with($data);
@@ -139,13 +156,28 @@ class MatchController extends Controller
                 "result" => $request->result,
             ]);
 
+            $match->point()->delete();
+
             if ($request->result == WINNER) {
                 $match->point()->create([
-                    'team_id' => $request->{$request->winner},
-                    "points" => POINTS
+                    'team_id' => $request->winner == "first_team" ? $request->second_team : $request->first_team,
+                    "points" => POINTS['lose']
                 ]);
+
+                $match->point()->create([
+                    'team_id' => $request->{$request->winner},
+                    "points" => POINTS['win']
+                ]);
+                
             }else{
-                $match->point()->delete();
+                $match->point()->create([
+                    'team_id' => $request->first_team,
+                    "points" => POINTS['draw']
+                ]);
+                $match->point()->create([
+                    'team_id' => $request->second_team,
+                    "points" => POINTS['draw']
+                ]);
             }
         });
 

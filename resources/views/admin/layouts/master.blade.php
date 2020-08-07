@@ -19,11 +19,28 @@
     <!-- Custom styles for this template-->
     <link href="{{asset('css/admin.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/swal.css')}}" rel="stylesheet">
+    <style>
+        div#loader{
+            background-color: white;
+            opacity :0.8;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+    </style>
     @stack('css')
 </head>
 
 <body id="page-top">
     
+    <div id="loader">
+        <img src="{{asset("img/loader.gif")}}" height="100px"/>
+    </div>
     <!-- Page Wrapper -->
     <div id="wrapper">
         
@@ -64,6 +81,12 @@
                 <a class="nav-link" href="{{route("match.index")}}">
                     <i class="fas fa-fw fa-trophy"></i>
                     <span>Matches</span>
+                </a>
+            </li>
+            <li class="nav-item {{strpos(Route::currentRouteName(), "point") === 0 ? "active" : ""}}">
+                <a class="nav-link" href="{{route("point.index")}}">
+                    <i class="fas fa-fw fa-trophy"></i>
+                    <span>Points</span>
                 </a>
             </li>
             
@@ -169,10 +192,16 @@
         </div>
     </div>
     
+    
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    
+    <script>
+        
+        $(window).on("load",function(){
+            $("#loader").hide();
+        })
+    </script>
     <!-- Core plugin JavaScript-->
     <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
     
@@ -181,15 +210,17 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/additional-methods.min.js"></script>
-
+    
     <script>
         const baseUrl = "{{url('/')}}/"
         const assetUrl = "{{asset('storage')}}/"
     </script>
+    
+    
     <!-- Page level custom scripts -->
     @stack('js')
     <script src="{{asset('js/common.js')}}"></script>
-
+    
 </body>
 
 </html>

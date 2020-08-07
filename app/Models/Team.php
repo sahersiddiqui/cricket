@@ -25,6 +25,6 @@ class Team extends Model
 
     public function points()
     {
-        return $this->hasMany(Point::class,"team_id","id");
+        return $this->hasMany(Point::class,"team_id","id")->whereHas("match");
     }
 }

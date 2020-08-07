@@ -35,7 +35,7 @@ class Match extends Model
 
     public function point()
     {
-        return $this->hasOne(Point::class,"match_id","id");
+        return $this->hasMany(Point::class,"match_id","id");
     }
 
     public function firstTeam()
