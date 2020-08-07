@@ -22,17 +22,21 @@ class MatchController extends Controller
             DB::statement(DB::raw("set @rownum=$request->start"));
             $player = Match::select([
                 "id",
-                "firstname",
-                "lastname",
-                "image_uri",
-                "country",
+                "first_team_id" ,
+                "second_team_id" ,
+                "match_date" ,
+                "result" ,
                 DB::raw('@rownum  := @rownum  + 1 AS rownum')
 
             ])
+            ->with([
+                'firstTeam',
+                'secondTeam',
+            ])
                 ->when($request->search['value'], function ($q) use ($request) {
                     $q->where("firstname", "LIKE", "%{$request->search['value']}%")
-                    ->orWhere("lastname", "LIKE", "%{$request->search['value']}%")
-                    ->orWhere("country", "LIKE", "%{$request->search['value']}%");
+                        ->orWhere("lastname", "LIKE", "%{$request->search['value']}%")
+                        ->orWhere("country", "LIKE", "%{$request->search['value']}%");
                 })
                 ->orderBy($request->columns[$request->order[0]['column']]['name'], $request->order[0]['dir'])
                 ->paginate($request->length);
@@ -65,7 +69,7 @@ class MatchController extends Controller
      */
     public function store(MatchRequest $request)
     {
-        DB::transaction(function () use($request) {
+        DB::transaction(function () use ($request) {
             $match = Match::create([
                 "first_team_id" => $request->first_team,
                 "second_team_id" => $request->second_team,
@@ -73,7 +77,7 @@ class MatchController extends Controller
                 "result" => $request->result,
             ]);
 
-            if($request->result == WINNER){
+            if ($request->result == WINNER) {
                 $match->point()->create([
                     'team_id' => $request->{$request->winner},
                     "points" => POINTS

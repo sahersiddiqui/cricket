@@ -29,9 +29,9 @@
                 <thead>
                     <tr>
                         <th>S.No.</th>
-                        <th>Name</th>
-                        <th>Club State</th>
-                        <th>Logo</th>
+                        <th>First Team</th>
+                        <th>Second Team</th>
+                        <th>Match Date</th>
                         <th>Created On</th>
                         <th>Action</th>
                     </tr>
@@ -48,5 +48,5 @@
 <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
 <!-- Page level custom scripts -->
-<script src="{{asset('js/datatables/Matches.js')}}"></script>
+<script src="{{asset('js/datatables/matches.js')}}"></script>
 @endpush
