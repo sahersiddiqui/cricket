@@ -73,11 +73,15 @@ class MatchController extends Controller
                 "result" => $request->result,
             ]);
 
-            $match->point()->create([
-                'team_id' => $request->winner,
-                "points" => 10
-            ]);
+            if($request->result == WINNER){
+                $match->point()->create([
+                    'team_id' => $request->{$request->winner},
+                    "points" => POINTS
+                ]);
+            }
         });
+
+        return redirect()->route("match.index")->with(['success' => "Match Added successfully"]);
     }
 
     /**

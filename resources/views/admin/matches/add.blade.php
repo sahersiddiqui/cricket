@@ -27,7 +27,7 @@
                                         <select class="form-control" name="first_team">
                                             <option value="">Select Team</option>
                                             @foreach ($teams as $item)
-                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                                <option value="{{$item->id}}" {{old("first_team") == $item->id ? "selected" : ""}}>{{$item->name}}</option>
                                             @endforeach
                                         </select>
                                         @error('first_team')
@@ -41,7 +41,7 @@
                                         <select class="form-control" name="second_team">
                                             <option value="">Select Team</option>
                                             @foreach ($teams as $item)
-                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                            <option value="{{$item->id}}" {{old("second_team") == $item->id ? "selected" : ""}}>{{$item->name}}</option>
                                         @endforeach
                                         </select>
                                         @error('second_team')
@@ -65,10 +65,23 @@
                                         <label>Match Result</label>
                                         <select class="form-control" name="result">
                                             <option value="">Select</option>
-                                            <option value="0">Draw</option>
-                                            <option value="1">Winning</option>
+                                            <option value="{{DRAW}}" {{old("result") == "0" ? "selected" : ""}}>Draw</option>
+                                            <option value="{{WINNER}}" {{old("result") == "1" ? "selected" : ""}}>Winning</option>
                                         </select>
                                         @error('result')
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label>Winning Team</label>
+                                        <select class="form-control" name="winner">
+                                            <option value="">Select</option>
+                                            <option value="first_team">First Team</option>
+                                            <option value="second_team">Second Team</option>
+                                        </select>
+                                        @error('winner')
                                             <span class="text-danger" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

@@ -17,8 +17,16 @@ class MatchRequest extends FormRequest
         return [
             'first_team' => 'required',
             'second_team' => 'required|different:first_team',
-            'match_date' => 'required|numeric|digits_between:1,5',
-            'result' => 'required|max:191',
+            'match_date' => 'required',
+            'result' => 'required',
+            'winner' => 'required_if:result,1',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "winner.required_if" => "Winner team is required if match is not draw."
         ];
     }
 }
