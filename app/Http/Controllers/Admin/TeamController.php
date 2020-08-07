@@ -86,7 +86,9 @@ class TeamController extends Controller
     public function show($id)
     {
         $id = base64_decode($id);
-        $data['team'] = Team::findOrFail($id);
+        $data['team'] = Team::with([
+            'points'
+        ])->findOrFail($id);
         return view("admin.teams.detail")->with($data);
     }
 

@@ -5,7 +5,7 @@
 @endpush
 @section("content")
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Teams</h1>
+ <h1 class="h3 mb-2 text-gray-800">Team <code>{{$team->name}}</code> :  {{$team->points->sum("points")}} Points</h1>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">

@@ -9,6 +9,6 @@ class Point extends Model
     protected $fillable= [
         "team_id",
         "match_id",
-        "point"
+        "points"
     ];
 }

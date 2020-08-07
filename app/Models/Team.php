@@ -22,4 +22,9 @@ class Team extends Model
     {
         return date("d-m-Y h:i A",strtotime($this->created_at));
     }
+
+    public function points()
+    {
+        return $this->hasMany(Point::class,"team_id","id");
+    }
 }
