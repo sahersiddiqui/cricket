@@ -85,7 +85,7 @@
             </li>
             <li class="nav-item {{strpos(Route::currentRouteName(), "point") === 0 ? "active" : ""}}">
                 <a class="nav-link" href="{{route("point.index")}}">
-                    <i class="fas fa-fw fa-trophy"></i>
+                    <i class="fas fa-fw fa-ruble-sign"></i>
                     <span>Points</span>
                 </a>
             </li>

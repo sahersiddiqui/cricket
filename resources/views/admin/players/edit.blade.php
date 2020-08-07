@@ -24,6 +24,8 @@
                             <div class="p-5">
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Select Team</label>
+
                                         <select class=" form-control " name="team_id">
                                             <option value="">Select</option>
                                             @foreach ($teams as $item)
@@ -39,6 +41,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>First Name</label>
+
                                         <input type="text" class="form-control form-control-user" autocomplete="off"  placeholder="First Name" name="first_name" value="{{old("first_name",$player->firstname)}}">
                                         @error('first_name')
                                         <span class="text-danger" role="alert">
@@ -49,6 +53,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Last Name</label>
+
                                     <input type="text" class="form-control form-control-user"  placeholder="Last Name" name="last_name" value="{{old("last_name",$player->lastname)}}">
                                         @error('last_name')
                                         <span class="text-danger" role="alert">
@@ -59,6 +65,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Profile Image</label>
+
                                         <input type="file" class="form-control form-control-user"  name="image">
                                         @error('image')
                                         <span class="text-danger" role="alert">
@@ -79,6 +87,8 @@
                             <div class="p-5">
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Jersey Number</label>
+                                        
                                         <input type="text" class="form-control form-control-user" autocomplete="off"  placeholder="Jersey Number" name="jersey_number" value="{{old("jersey_number",$player->jersey_number)}}">
                                         @error('jersey_number')
                                         <span class="text-danger" role="alert">
@@ -89,6 +99,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Country</label>
+
                                         <input type="text" class="form-control form-control-user"  placeholder="Country" name="country" value="{{old("country",$player->country)}}">
                                         @error('country')
                                         <span class="text-danger" role="alert">
@@ -99,6 +111,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Matches</label>
+
                                         <input type="text" class="form-control form-control-user" placeholder="Matches"  name="matches" value="{{old("matches",$player->matches)}}">
                                         @error('matches')
                                         <span class="text-danger" role="alert">
@@ -109,6 +123,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Runs</label>
+
                                         <input type="text" class="form-control form-control-user" placeholder="Runs"  name="runs" value="{{old("runs",$player->runs)}}">
                                         @error('runs')
                                         <span class="text-danger" role="alert">
@@ -119,6 +135,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Highest Score</label>
+
                                         <input type="text" class="form-control form-control-user" placeholder="Highest Score"  name="highest_score" value="{{old("highest_score",$player->highest_score)}}">
                                         @error('highest_score')
                                         <span class="text-danger" role="alert">
@@ -129,6 +147,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Total Fifties</label>
+
                                         <input type="text" class="form-control form-control-user"  placeholder="Total 50's" name="total_fifties" value="{{old("total_fifties",$player->total_fifties)}}">
                                         @error('total_fifties')
                                         <span class="text-danger" role="alert">
@@ -139,6 +159,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Total Hundreds</label>
+
                                         <input type="text" class="form-control form-control-user"  placeholder="Total 100's" name="total_hundreds" value="{{old("total_hundreds",$player->total_hundreds)}}">
                                         @error('total_hundreds')
                                         <span class="text-danger" role="alert">

@@ -126,25 +126,39 @@
 
     $("#add_match").validate({
         rules :{
-            name : {
+            first_team : {
                 required:true
             },
-            club_state : {
+            second_team : {
                 required : true
             },
-            logo : {
+            match_date : {
                 required : true
+            },
+            result : {
+                required : true
+            },
+            winner : {
+                required : function(){
+                    return $("[name='result']").val() == 1 ? true:false;
+                }
             },
         },
         messages:{
-            name : {
-                required : "Name is required",
+            first_team : {
+                required : "First Team is required",
             },
-            club_state :{
-                required : "Club state is required"
+            second_team :{
+                required : "Second Team state is required"
             },
-            logo :{
-                required : "Logo  is required"
+            match_date :{
+                required : "Match Date  is required"
+            },
+            result :{
+                required : "Result  is required"
+            },
+            winner :{
+                required : "Winner  is required"
             },
         },
         errorPlacement: function (error, element) {

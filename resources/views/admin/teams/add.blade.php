@@ -23,31 +23,36 @@
                                 @csrf
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" autocomplete="off"  placeholder="Name" name="name" value="{{old("name")}}">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control form-control-user" autocomplete="off"  placeholder="Name" name="name" value="{{old("name")}}">
                                         @error('name')
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Club State</label>
+
                                         <input type="text" class="form-control form-control-user"  placeholder="Club State" name="club_state" value="{{old("club_state")}}">
                                         @error('club_state')
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Logo</label>
+
                                         <input type="file" class="form-control form-control-user"  name="logo">
                                         @error('logo')
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                         @enderror
                                     </div>
                                 </div>
@@ -67,7 +72,7 @@
                             </form>
                         </div>
                     </div>
-
+                    
                 </div>
             </div>
         </div>
@@ -82,7 +87,7 @@
 @push('js')
 
 <script>
-
+    
     $("#add_team").validate({
         rules :{
             name : {

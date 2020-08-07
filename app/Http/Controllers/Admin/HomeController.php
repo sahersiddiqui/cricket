@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Team;
+use App\Models\Match;
 use App\Models\Player;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -28,7 +29,7 @@ class HomeController extends Controller
     {
         $data['teams'] = Team::count();
         $data['players'] = Player::count();
-        $data['matches'] = Player::count();
+        $data['matches'] = Match::count();
         return view('admin.home')->with($data);
     }
 }

@@ -23,14 +23,11 @@ class PointController extends Controller
             ->whereHas("match")
             ->whereHas("team")
             ->with(['team','match'])
-                // ->when($request->search['value'], function ($q) use ($request) {
-                //     $q->where("firstname", "LIKE", "%{$request->search['value']}%")
-                //         ->orWhere("lastname", "LIKE", "%{$request->search['value']}%")
-                //         ->orWhere("country", "LIKE", "%{$request->search['value']}%");
-                // })
-                // ->when($request->team_id, function ($q) use ($request) {
-                //     $q->where("team_id", $request->team_id);
-                // })
+                ->when($request->search['value'], function ($q) use ($request) {
+                    $q->whereHas("team", function($v) use ($request) {
+                        $v->Where("name", "LIKE", "%{$request->search['value']}%");
+                    });
+                })
                 ->orderBy($request->columns[$request->order[0]['column']]['name'], $request->order[0]['dir'])
                 ->paginate($request->length);
 

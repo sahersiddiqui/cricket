@@ -24,6 +24,7 @@
                                 @method('PUT')
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Name</label>
                                         <input type="text" class="form-control form-control-user" autocomplete="off"  placeholder="Name" name="name" value="{{$team->name}}">
                                         @error('name')
                                             <span class="text-danger" role="alert">
@@ -34,6 +35,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Club State</label>
                                         <input type="text" class="form-control form-control-user"  placeholder="Club State" name="club_state" value="{{$team->club_state}}">
                                         @error('club_state')
                                             <span class="text-danger" role="alert">
@@ -49,6 +51,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Logo</label>
                                         <input type="file" class="form-control form-control-user"  name="logo">
                                         @error('logo')
                                             <span class="text-danger" role="alert">

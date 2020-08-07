@@ -29,7 +29,7 @@ datatable = $('#dataTable').DataTable({
             name: 'match',
 			orderable: false,
 			render: function (data, type, row) {
-				return data  && data.result != "0" ? "Win" : 'Draw';
+				return data  && data.result != "0" ? "Not Draw" : 'Draw';
 			}
 		},
         {
@@ -39,8 +39,6 @@ datatable = $('#dataTable').DataTable({
 		{
 			data: 'match',
             name: 'match',
-			orderable: false,
-        
 			render: function (data, type, row) {
 				return data && data.format_match_date ? data.format_match_date : '-';
 			}
