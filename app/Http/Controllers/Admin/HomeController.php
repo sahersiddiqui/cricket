@@ -27,9 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['teams'] = Team::count();
-        $data['players'] = Player::count();
-        $data['matches'] = Match::count();
+        $data['teams'] = Team::whereNull('deleted_at')->count();
+        $data['players'] = Player::whereNull('deleted_at')->count();
+        $data['matches'] = Match::whereNull('deleted_at')->count();
         return view('admin.home')->with($data);
     }
 }

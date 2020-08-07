@@ -23,25 +23,24 @@ class MatchController extends Controller
             DB::statement(DB::raw("set @rownum=$request->start"));
             $player = Match::select([
                 "id",
-                "first_team_id" ,
-                "second_team_id" ,
-                "match_date" ,
-                "result" ,
+                "first_team_id",
+                "second_team_id",
+                "match_date",
+                "result",
                 "created_at",
                 DB::raw('@rownum  := @rownum  + 1 AS rownum')
 
             ])
-            ->with([
-                'firstTeam',
-                'secondTeam',
-            ])
+                ->with([
+                    'firstTeam',
+                    'secondTeam',
+                ])
                 ->when($request->search['value'], function ($q) use ($request) {
-                    $q->whereHas("firstTeam",function($v) use ($request){
-                        $v->where("name","LIKE","%{$request->search['value']}%");
-                    })->OrWhereHas("secondTeam",function($v) use ($request){
-                        $v->where("name","LIKE","%{$request->search['value']}%");
+                    $q->whereHas("firstTeam", function ($v) use ($request) {
+                        $v->where("name", "LIKE", "%{$request->search['value']}%");
+                    })->OrWhereHas("secondTeam", function ($v) use ($request) {
+                        $v->where("name", "LIKE", "%{$request->search['value']}%");
                     });
-
                 })
                 ->orderBy($request->columns[$request->order[0]['column']]['name'], $request->order[0]['dir'])
                 ->paginate($request->length);
@@ -92,8 +91,7 @@ class MatchController extends Controller
                     'team_id' => $request->{$request->winner},
                     "points" => POINTS['win']
                 ]);
-                
-            }else{
+            } else {
                 $match->point()->create([
                     'team_id' => $request->first_team,
                     "points" => POINTS['draw']
@@ -128,7 +126,7 @@ class MatchController extends Controller
     public function edit($id)
     {
         $id = base64_decode($id);
-        $data['match'] = Match::with(['point' => function($q){
+        $data['match'] = Match::with(['point' => function ($q) {
             $q->where("points", POINTS['win']);
         }])->findOrFail($id);
         $data['teams'] = Team::get();
@@ -148,7 +146,7 @@ class MatchController extends Controller
         $id = base64_decode($id);
         $match = Match::findOrFail($id);
 
-        DB::transaction(function () use ($request,$match) {
+        DB::transaction(function () use ($request, $match) {
             $match->update([
                 "first_team_id" => $request->first_team,
                 "second_team_id" => $request->second_team,
@@ -168,8 +166,7 @@ class MatchController extends Controller
                     'team_id' => $request->{$request->winner},
                     "points" => POINTS['win']
                 ]);
-                
-            }else{
+            } else {
                 $match->point()->create([
                     'team_id' => $request->first_team,
                     "points" => POINTS['draw']

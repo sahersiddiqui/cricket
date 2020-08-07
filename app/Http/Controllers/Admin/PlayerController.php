@@ -85,7 +85,7 @@ class PlayerController extends Controller
             'team_id' => $request->team_id,
         ]);
 
-        return redirect()->route('team.show',base64_encode($request->team_id))->withSuccess("Player added successfully");
+        return redirect()->route('team.show', base64_encode($request->team_id))->withSuccess("Player added successfully");
     }
 
     /**

@@ -19,15 +19,21 @@ datatable = $('#dataTable').DataTable({
 			orderable: false
 		},
 		{
-			data: 'first_team.name',
-            name: 'first_team.name',
-			orderable: false
+			data: 'first_team',
+            name: 'first_team',
+			orderable: false,
+			render : function(data){
+				return data ? data.name : " N/A";
+			}
             
 		},
         {
-			data: 'second_team.name',
-            name: 'second_team.name',
-			orderable: false
+			data: 'second_team',
+            name: 'second_team',
+			orderable: false,
+			render : function(data){
+				return data ? data.name : " N/A";
+			}
             
 		},
         {

@@ -20,11 +20,11 @@ class PointController extends Controller
                 DB::raw('@rownum  := @rownum  + 1 AS rownum')
 
             ])
-            ->whereHas("match")
-            ->whereHas("team")
-            ->with(['team','match'])
+                ->whereHas("match")
+                ->whereHas("team")
+                ->with(['team', 'match'])
                 ->when($request->search['value'], function ($q) use ($request) {
-                    $q->whereHas("team", function($v) use ($request) {
+                    $q->whereHas("team", function ($v) use ($request) {
                         $v->Where("name", "LIKE", "%{$request->search['value']}%");
                     });
                 })
