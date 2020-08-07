@@ -11,4 +11,14 @@ class Point extends Model
         "match_id",
         "points"
     ];
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class,"team_id","id");
+    }
+
+    public function match()
+    {
+        return $this->belongsTo(Match::class,"match_id","id");
+    }
 }

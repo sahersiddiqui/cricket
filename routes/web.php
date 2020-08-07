@@ -46,6 +46,11 @@ Route::namespace("Admin")->group(function(){
          * Dashboard routes
          */
         Route::get('/home', 'HomeController@index')->name('admin.home');
+
+        /**
+         * Points routes
+         */
+        Route::get('/point', 'PointController@index')->name('point.index');
     });
 
 });
